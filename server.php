@@ -169,10 +169,10 @@ if (isset($_POST['transfer_user'])) {
         $query = "INSERT INTO `transfer` (`transfer_ID`, `amount`, `acc_ID_sender`,`acc_ID_receiver`) VALUES (NULL, '$amount', '$sender_ID','$receiver_ID')";
         mysqli_query($db, $query);
 
-        $query = "UPDATE `account` SET `balance` = (SELECT `account`.`balance`+'$amount' FROM DUAL) WHERE `account`.`acc_ID` = '$receiver_ID'";
+        $query = "UPDATE `account` SET `balance` = (SELECT `account`.`balance`+'$amount' FROM `account`) WHERE `account`.`acc_ID` = '$receiver_ID'";
         $results = mysqli_query($db, $query);
 
-        $query = "UPDATE `account` SET `balance` = (SELECT `account`.`balance`-'$amount' FROM DUAL) WHERE `account`.`acc_ID` = '$sender_ID'";
+        $query = "UPDATE `account` SET `balance` = (SELECT `account`.`balance`-'$amount' FROM `account`) WHERE `account`.`acc_ID` = '$sender_ID'";
         $results = mysqli_query($db, $query);
 
         if (!$results) {
